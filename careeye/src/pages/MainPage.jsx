@@ -8,8 +8,13 @@ const MainPage = () => {
       <Header />
       <section className="main-hero">
         <div className="main-text">
-          <h1>“안심케어, 노약자의 안전을 지키다”</h1>
-          <p>AI 기반 낙상 감지로 요양시설의 안전을 실시간으로 모니터링합니다.</p>
+          <h1>
+            CARE EYE,<br />
+            노약자의 안전을 지키다
+          </h1>
+          <p>
+            AI 기반 낙상 감지로 요양시설의 안전을 실시간으로 모니터링합니다.
+          </p>
           <button className="main-btn">시스템 시작하기 →</button>
         </div>
       </section>
