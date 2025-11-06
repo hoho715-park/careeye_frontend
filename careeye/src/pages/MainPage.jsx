@@ -9,7 +9,7 @@ const MainPage = () => {
       <section className="main-hero">
         <div className="main-text">
           <h1>
-            CARE EYE,<br />
+            Care EYE,<br />
             노약자의 안전을 지키다
           </h1>
           <p>
