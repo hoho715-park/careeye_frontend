@@ -15,7 +15,7 @@ const MainPage = () => {
           <p>
             AI 기반 낙상 감지로 요양시설의 안전을 실시간으로 모니터링합니다.
           </p>
-          <button className="main-btn">시스템 시작하기 →</button>
+          <button className="main-btn">실시간 모니터링 하기 →</button>
         </div>
       </section>
     </>
