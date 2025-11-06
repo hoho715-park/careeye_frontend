@@ -2,10 +2,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 4rem;
-  height: 80px;
+  padding: 10px 4rem; /* ✅ 위아래 여백 추가 */
+  height: 100px; /* ✅ 기존 90px → 100px 로 높이 조정 */
   background-color: #ffffff;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: fixed;
   width: 100%;
   top: 0;
@@ -13,10 +13,16 @@
   z-index: 100;
 }
 
+/* ✅ 로고 스타일 수정 */
 .menubar-logo img {
-  height: 45px;
+  height: 80px; /* 로고 크기는 유지 */
+  transform: translateY(2px); /* 약간 중앙 보정 */
+  margin-top: 5px; /* 위 여백 추가 */
+  margin-bottom: 5px; /* 아래 여백 추가 */
+  filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.3));
 }
 
+/* 메뉴 영역 */
 .menubar-nav {
   display: flex;
   list-style: none;
