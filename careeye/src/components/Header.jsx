@@ -18,6 +18,7 @@ const Header = () => {
           <li><Link to="/">Home</Link></li>
           <li><Link to="/monitoring">Monitoring</Link></li>
           <li><Link to="/system">System</Link></li>
+          <li><Link to="/more">More</Link></li> {/* ✅ 추가된 메뉴 */}
         </ul>
       </nav>
 
