@@ -4,21 +4,30 @@ import "../styles/Header.css";
 
 const Header = () => {
   return (
-    <nav className="menubar-container">
-      {/* 로고 */}
-      <div className="menubar-logo">
-        <Link to="/">
+    <header className="menubar-container">
+      {/* 왼쪽 로고 */}
+      <div className="menubar-left">
+        <Link to="/" className="menubar-logo">
           <img src="/careeye_logo_v.png" alt="CareEye logo" />
         </Link>
       </div>
 
-      {/* 메뉴 */}
-      <ul className="menubar-nav">
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/monitoring">Monitoring</Link></li>
-        <li><Link to="/system">System</Link></li>
-      </ul>
-    </nav>
+      {/* 중앙 메뉴 */}
+      <nav className="menubar-center">
+        <ul>
+          <li><Link to="/">Home</Link></li>
+          <li><Link to="/monitoring">Monitoring</Link></li>
+          <li><Link to="/system">System</Link></li>
+        </ul>
+      </nav>
+
+      {/* 오른쪽 로그인 버튼 */}
+      <div className="menubar-right">
+        <Link to="/login" className="login-button">
+          LOGIN
+        </Link>
+      </div>
+    </header>
   );
 };
 
