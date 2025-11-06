@@ -1,0 +1,186 @@
+/* ================================
+   로그인 페이지 전체 컨테이너
+================================ */
+.login-page-container {
+  position: relative;
+  display: flex;
+  justify-content: center;  /* 가로 중앙 */
+  align-items: center;      /* 세로 중앙 */
+  width: 100vw;             /* 전체 화면 너비 */
+  height: calc(100vh - 100px); /* 헤더 제외한 높이 (헤더 높이: 100px) */
+  background-color: #ffffff;
+  overflow: hidden;
+  box-sizing: border-box;
+  margin-top: 100px; /* 헤더 아래 위치 */
+}
+
+/* ================================
+   로그인 박스
+================================ */
+.login-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  padding: 40px;
+  width: 380px;
+  text-align: center;
+}
+
+/* 로고 */
+.login-logo {
+  width: 140px;
+  margin-bottom: 30px;
+}
+
+/* ================================
+   입력 필드
+================================ */
+.input-group {
+  position: relative;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 15px 12px 40px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+  outline: none;
+}
+
+.input-group input:focus {
+  border-color: #3A7AFE;
+}
+
+.input-icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+  font-size: 1.1rem;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+/* ================================
+   로그인 버튼
+================================ */
+.login-button {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #3A7AFE, #7A5AF8);
+  border: none;
+  color: #fff;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.3s ease;
+}
+
+.login-button:hover {
+  background: linear-gradient(135deg, #2a66e5, #674ae0);
+}
+
+/* ================================
+   링크 그룹
+================================ */
+.link-group {
+  margin: 20px 0 10px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  font-size: 0.95rem;
+  color: #666;
+}
+
+.link-group a {
+  color: #666;
+  text-decoration: none;
+}
+
+.link-group a:hover {
+  text-decoration: underline;
+  color: #3A7AFE;
+}
+
+/* ================================
+   회원가입 그룹
+================================ */
+.register-group {
+  margin-top: 10px;
+  font-size: 0.95rem;
+  color: #888;
+}
+
+.register-link {
+  color: #3A7AFE;
+  font-weight: bold;
+  text-decoration: none;
+  margin-left: 5px;
+}
+
+.register-link:hover {
+  text-decoration: underline;
+}
+
+/* ================================
+   반응형 (모바일)
+================================ */
+@media (max-width: 480px) {
+  .login-box {
+    width: 90%;
+    padding: 30px;
+  }
+
+  .login-logo {
+    width: 110px;
+  }
+
+  .login-button {
+    font-size: 1rem;
+  }
+}
+
+
+/* ================================
+   🔒 비밀번호 관리자 확장프로그램(LastPass 등) UI 숨기기
+================================ */
+
+/* LastPass 아이콘, Bitwarden 팝업 등이 input 우측에서 넘치지 않도록 강제 클리핑 */
+.input-group {
+  overflow: hidden; /* 🔹 내부의 외부 요소 넘침 방지 */
+}
+
+/* LastPass 확장 프로그램에서 삽입하는 iframe, button, div 숨기기 */
+input::-webkit-credentials-auto-fill-button,
+input[data-lastpass-icon-root],
+input[data-lastpass-icon-root] ~ *,
+div[data-lastpass-icon-root],
+iframe[src*="lastpass.com"],
+iframe[title="LastPass"] {
+  display: none !important;
+}
+
+/* 일부 브라우저 (Firefox, Edge 등)에서도 강제로 숨김 */
+input:-internal-autofill-selected {
+  background-color: #fff !important;
+  color: #333 !important;
+}
