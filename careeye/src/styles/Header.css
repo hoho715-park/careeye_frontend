@@ -1,0 +1,37 @@
+.menubar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 4rem;
+  height: 80px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+
+.menubar-logo img {
+  height: 45px;
+}
+
+.menubar-nav {
+  display: flex;
+  list-style: none;
+  gap: 50px;
+  margin: 0;
+}
+
+.menubar-nav a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: color 0.2s;
+}
+
+.menubar-nav a:hover {
+  color: #3A7AFE;
+}
