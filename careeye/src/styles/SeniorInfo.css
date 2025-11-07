@@ -1,0 +1,173 @@
+/* ================================
+   전체 컨테이너
+================================ */
+.senior-info-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f8fafc;
+  padding: 40px 20px;
+}
+
+/* 내부 콘텐츠 */
+.senior-info-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* 제목 */
+.senior-info-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1e3a8a;
+  margin-bottom: 1.8rem;
+}
+
+/* ================================
+   검색 폼
+================================ */
+.search-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+  width: 100%;
+  max-width: 800px; /* ✅ 검색 전후 동일한 크기로 고정 */
+}
+
+.search-form input {
+  flex: 1;
+  padding: 14px 18px;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 10px;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.25s ease, background-color 0.25s ease;
+  background-color: #f5f8fc;
+  color: #222;
+}
+
+.search-form input:focus {
+  border-color: #3a7afe;
+  background-color: #ffffff;
+  box-shadow: 0 0 6px rgba(58, 122, 254, 0.25);
+}
+
+.search-btn {
+  background: linear-gradient(135deg, #3a7afe, #6a5af8);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 24px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.search-btn:hover {
+  background: linear-gradient(135deg, #4c8dff, #7b6dfc);
+}
+
+/* ================================
+   결과 섹션
+================================ */
+.result-section {
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.info-placeholder {
+  color: #6b7280;
+  font-size: 1rem;
+  margin-top: 8px;
+}
+
+.not-found-text {
+  color: #ef4444;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+/* ================================
+   결과 카드 리스트
+================================ */
+.result-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+/* ✅ 가로 정렬 */
+.result-list.horizontal-layout {
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+}
+
+/* 카드 스타일 */
+.senior-card {
+  background-color: #ffffff;
+  padding: 30px 40px;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  width: 380px; /* ✅ 일정 크기 유지 */
+  transition: all 0.3s ease;
+}
+
+.senior-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* 성별 색상 */
+.senior-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  padding-bottom: 8px;
+  border-bottom: 2.5px solid #3a7afe;
+  color: #1e3a8a;
+}
+
+.senior-card.male-border h3 {
+  border-bottom: 2.5px solid #3a7afe;
+}
+
+.senior-card.female-border h3 {
+  border-bottom: 2.5px solid #ff7bac;
+}
+
+.senior-card p {
+  margin: 6px 0;
+  font-size: 1rem;
+  color: #333;
+}
+
+/* ================================
+   반응형
+================================ */
+@media (max-width: 900px) {
+  .result-list.horizontal-layout {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .search-form {
+    max-width: 90%; /* 모바일에서만 줄어듦 */
+  }
+
+  .senior-card {
+    width: 90%;
+  }
+}
