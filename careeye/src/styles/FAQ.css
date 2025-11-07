@@ -52,6 +52,11 @@ html, body, #root {
   padding: 6px 0;
 }
 
+/* ✅ 마지막 항목은 하단 선 제거 */
+.faq-item:last-child {
+  border-bottom: none;
+}
+
 /* 질문 버튼 */
 .faq-question {
   width: 100%;
@@ -118,11 +123,19 @@ html, body, #root {
   margin: 0;
 }
 
+/* ✅ 선 (추가 문의 위쪽에 표시) */
+.faq-divider {
+  width: 100%;
+  height: 1.5px;
+  background-color: #e1e5f1;
+  margin-top: 8px;
+  margin-bottom: 10px;
+}
+
 /* ✅ 추가 문의하기 버튼 */
 .contact-btn-wrapper {
   display: flex;
-  justify-content: flex-end; /* 오른쪽 정렬 */
-  margin-top: 12px;
+  justify-content: flex-end;
 }
 
 .contact-button {
@@ -183,10 +196,8 @@ html, body, #root {
   font-size: 1rem;
   resize: none;
   margin-bottom: 15px;
-
-  /* ✅ 배경색 변경 */
-  background-color: #f7f8fa; /* 연한 회색 */
-  color: #222; /* 텍스트는 진한 회색으로 */
+  background-color: #f7f8fa;
+  color: #222;
 }
 
 .popup-buttons {

@@ -44,6 +44,7 @@ const FAQ = () => {
   return (
     <div className="faq-container">
       <h2 className="faq-title">FAQ</h2>
+
       <div className="faq-list">
         {faqData.map((item, index) => (
           <div key={index} className="faq-item">
@@ -64,19 +65,22 @@ const FAQ = () => {
               <p>{item.answer}</p>
             </div>
 
-            {/* ✅ 마지막 질문 밑에만 추가 문의 버튼 표시 */}
+            {/* ✅ 마지막 항목에만 버튼 + 선 위쪽 배치 */}
             {index === faqData.length - 1 && (
-              <div className="contact-btn-wrapper">
-                <button className="contact-button" onClick={togglePopup}>
-                  추가 문의하기
-                </button>
-              </div>
+              <>
+                <div className="faq-divider"></div>
+                <div className="contact-btn-wrapper">
+                  <button className="contact-button" onClick={togglePopup}>
+                    추가 문의하기
+                  </button>
+                </div>
+              </>
             )}
           </div>
         ))}
       </div>
 
-      {/* ✅ 팝업 */}
+      {/* ✅ 문의 팝업 */}
       {showPopup && (
         <div className="popup-overlay">
           <div className="popup">
