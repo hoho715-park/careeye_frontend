@@ -19,6 +19,11 @@ const Header = () => {
 
       {/* 중앙 메뉴 */}
       <nav className={`menubar-center ${menuOpen ? "open" : ""}`}>
+        {menuOpen && (
+          <div className="close-button" onClick={closeMenu}>
+            ✕
+          </div>
+        )}
         <ul>
           <li>
             <Link to="/" onClick={closeMenu}>
@@ -55,17 +60,13 @@ const Header = () => {
 
       {/* 오른쪽 영역 */}
       <div className="menubar-right">
-        {/* 데스크탑용 로그인 */}
         <Link to="/login" className="login-button desktop-login">
           LOGIN
         </Link>
 
         {/* 햄버거 버튼 */}
-        <div
-          className={`hamburger ${menuOpen ? "active" : ""}`}
-          onClick={toggleMenu}
-        >
-          {menuOpen ? "✕" : "☰"}
+        <div className="hamburger" onClick={toggleMenu}>
+          ☰
         </div>
       </div>
     </header>

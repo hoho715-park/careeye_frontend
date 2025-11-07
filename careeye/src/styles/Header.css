@@ -18,7 +18,7 @@
 }
 
 /* ================================
-   왼쪽 로고
+   로고
 ================================ */
 .menubar-left {
   display: flex;
@@ -69,7 +69,7 @@
   gap: 20px;
 }
 
-/* 🚀 로그인 버튼 */
+/* 로그인 버튼 */
 .login-button {
   position: relative;
   padding: 10px 28px;
@@ -87,19 +87,12 @@
   overflow: hidden;
 }
 
-/* ✅ hover 시 텍스트 명확히 표시 */
 .login-button:hover {
   background: linear-gradient(135deg, #4c8dff, #7b6dfc);
   box-shadow: 0 0 25px rgba(58, 122, 254, 0.55);
   transform: translateY(-2px);
-  color: #fff !important; /* 텍스트 명확히 표시 */
-  text-shadow: 0 0 6px rgba(255, 255, 255, 0.6); /* 살짝 빛감 추가 */
-}
-
-/* ✅ 클릭 시 눌림 효과 */
-.login-button:active {
-  transform: scale(0.97);
-  box-shadow: 0 0 15px rgba(58, 122, 254, 0.4);
+  color: #fff !important;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
 }
 
 /* ================================
@@ -119,10 +112,29 @@
 }
 
 /* ================================
+   닫기(X) 버튼
+================================ */
+.close-button {
+  position: absolute;
+  top: 25px;
+  right: 35px;
+  font-size: 2.2rem;
+  color: #3a7afe;
+  cursor: pointer;
+  font-weight: 700;
+  transition: transform 0.2s ease;
+  z-index: 1100;
+}
+
+.close-button:hover {
+  transform: scale(1.2);
+  color: #2a5de0;
+}
+
+/* ================================
    반응형 (1024px 이하에서 즉시 전환)
 ================================ */
 @media (max-width: 1024px) {
-  /* 중앙 메뉴 숨김 */
   .menubar-center {
     position: fixed;
     top: 0;
@@ -138,7 +150,6 @@
     align-items: center;
   }
 
-  /* 메뉴 열릴 때 */
   .menubar-center.open {
     transform: translateY(0);
   }
@@ -148,18 +159,15 @@
     gap: 25px;
   }
 
-  /* 모바일 전용 로그인 버튼 */
   .mobile-login {
     display: block;
     margin-top: 20px;
   }
 
-  /* 데스크탑 로그인 버튼 숨기기 */
   .desktop-login {
     display: none;
   }
 
-  /* 햄버거 버튼 표시 */
   .hamburger {
     display: block;
     font-size: 2rem;
@@ -167,13 +175,12 @@
     color: #3a7afe;
   }
 
-  /* 로고 크기 축소 */
   .menubar-logo img {
     height: 65px;
   }
 }
 
-/* 기본적으로 모바일 로그인 숨김 */
+/* 모바일 기본 숨김 */
 .mobile-login {
   display: none;
 }
