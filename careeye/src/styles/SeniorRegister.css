@@ -1,0 +1,231 @@
+/* ================================
+   전체 컨테이너
+================================ */
+.register-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* ✅ 중앙 정렬 */
+  min-height: 100vh;
+  background-color: #f8fafc;
+  padding: 80px 20px;
+}
+
+/* ================================
+   등록 폼
+================================ */
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  max-width: 420px;
+  background: #fff;
+  padding: 30px 40px;
+  border-radius: 14px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* 라벨 */
+.input-label {
+  font-size: 0.9rem;
+  color: #374151;
+  margin-left: 4px;
+  font-weight: 600;
+  margin-bottom: -4px;
+}
+
+/* 입력칸 */
+.register-form input {
+  background-color: #f3f6fa;
+  border: 1.5px solid #d0d7e6;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 1rem;
+  color: #222;
+  outline: none;
+  transition: all 0.25s ease;
+}
+
+.register-form input:focus {
+  background-color: #ffffff;
+  border-color: #3a7afe;
+  box-shadow: 0 0 8px rgba(58, 122, 254, 0.25);
+}
+
+/* ================================
+   성별 선택
+================================ */
+.gender-select {
+  display: flex;
+  gap: 15px;
+  margin-top: 5px;
+}
+
+.gender-btn {
+  flex: 1;
+  border: 1.5px solid #d0d7e6;
+  background-color: #f3f6fa;
+  border-radius: 10px;
+  padding: 12px 0;
+  font-size: 1rem;
+  color: #333;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  outline: none;
+}
+
+.gender-btn:hover {
+  background-color: #e7ecf8;
+}
+
+.gender-btn:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/* ✅ 남자 버튼 활성화 */
+.gender-btn.active.male {
+  background: linear-gradient(135deg, #6ecbff, #9edbff);
+  color: #fff;
+  border-color: #5db6ff;
+  box-shadow: 0 0 10px rgba(94, 177, 255, 0.4);
+}
+
+/* ✅ 여자 버튼 활성화 */
+.gender-btn.active.female {
+  background: linear-gradient(135deg, #ff92b2, #ffb7cc);
+  color: #fff;
+  border-color: #ff8fa3;
+  box-shadow: 0 0 10px rgba(255, 150, 180, 0.4);
+}
+
+/* 등록 버튼 */
+.submit-btn {
+  background: linear-gradient(135deg, #3a7afe, #6a5af8);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 14px;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-top: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+  background: linear-gradient(135deg, #4c8dff, #7b6dfc);
+  box-shadow: 0 4px 12px rgba(58, 122, 254, 0.4);
+}
+
+/* ================================
+   등록 완료 (카드 뉴스형)
+================================ */
+.result-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.senior-card {
+  background-color: #f9fbff; /* ✅ 카드뉴스 느낌의 연한 배경 */
+  padding: 40px 50px;
+  border-radius: 20px;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+  text-align: left;
+  width: 100%;
+  max-width: 500px;
+  transition: all 0.3s ease;
+}
+
+.senior-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+}
+
+/* ✅ 성별에 따른 선 색상 */
+.senior-card h3 {
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2.5px solid #3a7afe;
+  color: #1e3a8a;
+}
+
+.senior-card.male-border h3 {
+  border-bottom: 2.5px solid #3a7afe;
+}
+
+.senior-card.female-border h3 {
+  border-bottom: 2.5px solid #ff7bac;
+}
+
+.senior-card p {
+  margin: 8px 0;
+  font-size: 1rem;
+  color: #333;
+}
+
+/* 버튼 그룹 중앙 정렬 */
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+/* 홈으로 돌아가기 버튼 */
+.back-btn {
+  background-color: #e5e7eb;
+  color: #111827;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.back-btn:hover {
+  background-color: #d1d5db;
+}
+
+/* 추가 등록하기 버튼 */
+.reset-btn {
+  background-color: #3a7afe;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.reset-btn:hover {
+  background-color: #295dde;
+}
+
+/* ================================
+   반응형
+================================ */
+@media (max-width: 600px) {
+  .register-form,
+  .senior-card {
+    width: 90%;
+    padding: 25px 25px;
+  }
+
+  .button-group {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .back-btn,
+  .reset-btn {
+    width: 80%;
+  }
+}
