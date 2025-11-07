@@ -61,7 +61,10 @@ const Header = () => {
         </Link>
 
         {/* 햄버거 버튼 */}
-        <div className={`hamburger ${menuOpen ? "active" : ""}`} onClick={toggleMenu}>
+        <div
+          className={`hamburger ${menuOpen ? "active" : ""}`}
+          onClick={toggleMenu}
+        >
           {menuOpen ? "✕" : "☰"}
         </div>
       </div>

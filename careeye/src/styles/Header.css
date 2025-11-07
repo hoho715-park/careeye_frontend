@@ -87,10 +87,19 @@
   overflow: hidden;
 }
 
+/* ✅ hover 시 텍스트 명확히 표시 */
 .login-button:hover {
   background: linear-gradient(135deg, #4c8dff, #7b6dfc);
   box-shadow: 0 0 25px rgba(58, 122, 254, 0.55);
   transform: translateY(-2px);
+  color: #fff !important; /* 텍스트 명확히 표시 */
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.6); /* 살짝 빛감 추가 */
+}
+
+/* ✅ 클릭 시 눌림 효과 */
+.login-button:active {
+  transform: scale(0.97);
+  box-shadow: 0 0 15px rgba(58, 122, 254, 0.4);
 }
 
 /* ================================
