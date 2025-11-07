@@ -1,0 +1,82 @@
+/* ================================
+   MySenior 메인 컨테이너
+================================ */
+.mysenior-container {
+  padding-top: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ffffff;
+  min-height: 100vh;
+}
+
+/* 제목 */
+.mysenior-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #0b1736;
+  margin-bottom: 3rem;
+}
+
+/* 카드 전체 래퍼 */
+.mysenior-card-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
+  flex-wrap: wrap;
+}
+
+/* 개별 카드 */
+.mysenior-card {
+  width: 280px;
+  height: 280px;
+  background-color: #f8f9ff;
+  border-radius: 18px;
+  box-shadow: 0 6px 16px rgba(58, 122, 254, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.mysenior-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(58, 122, 254, 0.35);
+}
+
+/* 이미지 */
+.mysenior-img {
+  width: 130px;
+  height: 130px;
+  margin-bottom: 20px;
+  object-fit: contain;
+}
+
+/* 텍스트 */
+.mysenior-card p {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #0b1736;
+  margin: 0;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .mysenior-card-wrapper {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .mysenior-card {
+    width: 240px;
+    height: 240px;
+  }
+
+  .mysenior-img {
+    width: 100px;
+    height: 100px;
+  }
+}
