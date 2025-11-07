@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { FaRegUser, FaLock, FaRegIdBadge, FaEnvelope, FaCalendar, FaVenusMars } from "react-icons/fa";
+import {
+  FaRegUser,
+  FaLock,
+  FaRegIdBadge,
+  FaEnvelope,
+  FaCalendar,
+  FaVenusMars,
+} from "react-icons/fa";
 import "../styles/SignUp.css";
 
 const SignUp = () => {
@@ -39,49 +46,102 @@ const SignUp = () => {
   return (
     <div className="signup-page-container">
       <div className="signup-box">
-        <img src="/careeye_logo_v.png" alt="CareEye Logo" className="signup-logo" />
+        <img
+          src="/careeye_logo_v.png"
+          alt="CareEye Logo"
+          className="signup-logo"
+        />
 
         <div className="form-section">
           <div className="input-group">
             <FaRegIdBadge className="input-icon" />
-            <input type="text" placeholder="아이디" value={userId} onChange={(e) => setUserId(e.target.value)} />
+            <input
+              type="text"
+              placeholder="아이디"
+              value={userId}
+              onChange={(e) => setUserId(e.target.value)}
+            />
           </div>
 
           <div className="input-group">
             <FaRegUser className="input-icon" />
-            <input type="text" placeholder="이름" value={username} onChange={(e) => setUsername(e.target.value)} />
+            <input
+              type="text"
+              placeholder="이름"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
           </div>
 
           <div className="input-group">
             <FaLock className="input-icon" />
-            <input type="password" placeholder="비밀번호" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <input
+              type="password"
+              placeholder="비밀번호"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </div>
 
           <div className="input-group">
             <FaLock className="input-icon" />
-            <input type="password" placeholder="비밀번호 확인" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+            <input
+              type="password"
+              placeholder="비밀번호 확인"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
           </div>
 
           <div className="input-group">
             <FaEnvelope className="input-icon" />
-            <input type="email" placeholder="이메일" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <input
+              type="email"
+              placeholder="이메일"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </div>
 
+          {/* ✅ 생년월일 (date input 보완) */}
           <div className="input-group">
             <FaCalendar className="input-icon" />
-            <input type="date" placeholder="생년월일" value={birthday} onChange={(e) => setBirthday(e.target.value)} />
+            <input
+              type="date"
+              placeholder="생년월일"
+              value={birthday}
+              onChange={(e) => setBirthday(e.target.value)}
+              className="date-input"
+            />
           </div>
 
+          {/* 성별 선택 */}
           <div className="gender-group">
-            <FaVenusMars className="input-icon" />
+            <FaVenusMars className="input-icon gender-icon" />
             <div className="gender-buttons">
-              <button className={`gender-button ${gender === "male" ? "selected" : ""}`} onClick={() => setGender("male")}>남자</button>
-              <button className={`gender-button ${gender === "female" ? "selected" : ""}`} onClick={() => setGender("female")}>여자</button>
+              <button
+                className={`gender-button ${
+                  gender === "male" ? "selected" : ""
+                }`}
+                onClick={() => setGender("male")}
+              >
+                남자
+              </button>
+              <button
+                className={`gender-button ${
+                  gender === "female" ? "selected" : ""
+                }`}
+                onClick={() => setGender("female")}
+              >
+                여자
+              </button>
             </div>
           </div>
         </div>
 
-        <button className="signup-button" onClick={handleSignUp}>가입하기</button>
+        <button className="signup-button" onClick={handleSignUp}>
+          가입하기
+        </button>
       </div>
 
       {showPopup && (

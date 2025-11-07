@@ -36,14 +36,14 @@
   position: relative;
   width: 100%;
   margin-bottom: 15px;
-  overflow: hidden; /* 자동완성 UI 잘림 방지 */
+  overflow: hidden;
 }
 
 .input-group input {
   width: 100%;
   padding: 12px 15px 12px 40px;
   border: 1px solid #ddd;
-  border-radius: 8px; /* ✅ 모든 모서리 둥글게 */
+  border-radius: 8px;
   font-size: 1rem;
   outline: none;
   transition: border-color 0.2s, box-shadow 0.2s;
@@ -51,12 +51,35 @@
   box-sizing: border-box;
 }
 
-.input-group input:focus {
-  border-color: #3A7AFE;
+/* ✅ 생년월일 입력 필드 개선 */
+.date-input {
+  font-size: 1rem;
+  padding-right: 15px;
+  color: #333;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.date-input::-webkit-calendar-picker-indicator {
+  position: absolute;
+  right: 15px;
+  color: #3a7afe;
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.date-input:focus {
+  border-color: #3a7afe;
   box-shadow: 0 0 4px rgba(58, 122, 254, 0.3);
 }
 
-/* ✅ 브라우저 오토필 시에도 둥근 모서리 유지 */
+.input-group input:focus {
+  border-color: #3a7afe;
+  box-shadow: 0 0 4px rgba(58, 122, 254, 0.3);
+}
+
+/* 오토필 둥근 모서리 유지 */
 input:-webkit-autofill {
   border-radius: 8px !important;
   box-shadow: 0 0 0px 1000px white inset !important;
@@ -80,11 +103,20 @@ input:-webkit-autofill {
   justify-content: center;
   align-items: center;
   margin: 15px 0;
+  position: relative;
+}
+
+.gender-icon {
+  position: absolute;
+  left: 15px;
+  color: #999;
+  font-size: 1.1rem;
 }
 
 .gender-buttons {
   display: flex;
   gap: 15px;
+  margin-left: 35px;
 }
 
 .gender-button {
@@ -99,15 +131,15 @@ input:-webkit-autofill {
 }
 
 .gender-button:hover {
-  border-color: #3A7AFE;
+  border-color: #3a7afe;
   background: #eef4ff;
-  color: #3A7AFE;
+  color: #3a7afe;
 }
 
 .gender-button.selected {
-  border-color: #3A7AFE;
+  border-color: #3a7afe;
   background: #f0f4ff;
-  color: #3A7AFE;
+  color: #3a7afe;
 }
 
 /* ================================
@@ -116,7 +148,7 @@ input:-webkit-autofill {
 .signup-button {
   width: 100%;
   padding: 14px;
-  background: linear-gradient(135deg, #3A7AFE, #7A5AF8);
+  background: linear-gradient(135deg, #3a7afe, #7a5af8);
   border: none;
   border-radius: 8px;
   color: #fff;
@@ -124,11 +156,12 @@ input:-webkit-autofill {
   font-size: 1.1rem;
   margin-top: 20px;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .signup-button:hover {
   background: linear-gradient(135deg, #2a66e5, #674ae0);
+  transform: translateY(-2px);
 }
 
 /* ================================
@@ -157,7 +190,7 @@ input:-webkit-autofill {
 }
 
 .popup-button {
-  background: #3A7AFE;
+  background: #3a7afe;
   color: white;
   border: none;
   padding: 10px 20px;
