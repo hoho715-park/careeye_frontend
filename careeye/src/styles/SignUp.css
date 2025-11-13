@@ -223,6 +223,7 @@ input:-webkit-autofill {
   text-align: center;
   width: 350px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  color: #213547; /* ensure text is visible regardless of root color scheme */
 }
 
 .popup-button {
