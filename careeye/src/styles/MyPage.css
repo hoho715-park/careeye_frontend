@@ -1,0 +1,29 @@
+.mypage-container {
+  margin-top: 150px;
+  text-align: center;
+  padding: 40px;
+}
+
+.mypage-container h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 40px;
+}
+
+.logout-btn {
+  padding: 12px 28px;
+  background: #ff4d4d;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.logout-btn:hover {
+  background: #ff3333;
+  transform: scale(1.05);
+}

@@ -6,10 +6,13 @@ import SignUp from "./pages/SignUp";
 import FAQ from "./pages/FAQ";
 import Header from "./components/Header";
 
-/* 🧓 MySenior 관련 페이지 추가 */
+/* 🧓 MySenior 관련 페이지 */
 import MySenior from "./pages/MySenior";
 import SeniorRegister from "./pages/SeniorRegister";
 import SeniorInfo from "./pages/SeniorInfo";
+
+/* ⭐ 새로 추가: MyPage */
+import MyPage from "./pages/MyPage";
 
 function App() {
   return (
@@ -20,10 +23,14 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/faq" element={<FAQ />} />
-        {/* ✅ MySenior 관련 라우트 */}
+
+        {/* MySenior */}
         <Route path="/my-senior" element={<MySenior />} />
         <Route path="/my-senior/register" element={<SeniorRegister />} />
         <Route path="/my-senior/info" element={<SeniorInfo />} />
+
+        {/* ⭐ 새로 추가된 MyPage */}
+        <Route path="/mypage" element={<MyPage />} />
       </Routes>
     </Router>
   );

@@ -1,15 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { FaRegUser, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import "../styles/Login.css";
 
 const Login = () => {
-  const [userId, setUserId] = useState(""); 
+  const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
   const navigate = useNavigate();
+
+  // 🔥 로그인 페이지 들어오면 자동으로 로그아웃 처리
+  useEffect(() => {
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("username");
+    localStorage.removeItem("userId");
+  }, []);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -17,28 +23,20 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
-      const loginData = {
-        id: userId,         // 🔥 백엔드 DTO와 필드명 맞춤
-        password: password,
-      };
+      const response = await axios.post("http://localhost:8080/user/login", {
+        id: userId,
+        password,
+      });
 
-      const response = await axios.post(
-        "http://localhost:8080/user/login",
-        loginData
-      );
+      alert("로그인 성공!");
 
-      console.log("로그인 응답:", response.data);
+      localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem("username", response.data.username);
+      localStorage.setItem("userId", response.data.userId);
 
-      // 🔥 백엔드에서 문자열로 반환하므로 포함 여부 체크
-      if (response.data.includes("로그인 성공")) {
-        alert("로그인 성공!");
-        navigate("/"); 
-      } else {
-        alert("로그인 실패: 아이디 또는 비밀번호를 확인하세요.");
-      }
+      navigate("/");
     } catch (error) {
-      console.error("로그인 오류:", error);
-      alert("로그인 실패: " + (error.response?.data || "Network Error"));
+      alert("로그인 실패: 아이디 또는 비밀번호를 확인하세요.");
     }
   };
 
