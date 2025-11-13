@@ -49,6 +49,28 @@
   transition: border-color 0.2s, box-shadow 0.2s;
   background-color: #fff;
   box-sizing: border-box;
+  color: #333;
+}
+
+.input-group input::placeholder {
+  color: #999;
+}
+
+/* 날짜 라벨 스타일 */
+.date-group {
+  position: relative;
+  padding-top: 18px; /* label 공간 확보 */
+}
+
+.date-title {
+  position: absolute;
+  top: 2px;
+  left: 40px;
+  font-size: 0.85rem;
+  color: #666;
+  background: #fff;
+  padding: 0 4px;
+  z-index: 5;
 }
 
 /* ✅ 생년월일 입력 필드 개선 */

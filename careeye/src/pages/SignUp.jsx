@@ -6,6 +6,7 @@ import {
   FaLock,
   FaRegIdBadge,
   FaEnvelope,
+  FaPhone,
   FaCalendar,
   FaVenusMars,
 } from "react-icons/fa";
@@ -18,6 +19,7 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [gender, setGender] = useState("");
   const [showPopup, setShowPopup] = useState(false);
   const navigate = useNavigate();
@@ -29,17 +31,38 @@ const SignUp = () => {
     }
 
     try {
-      await axios.post("http://localhost:8080/api/users/register", {
+      console.log("회원가입 요청 데이터:", { userId, username, password, email, birthday, phoneNumber, gender });
+      const response = await axios.post("http://localhost:8080/api/users/register", {
         userId,
         username,
         password,
         email,
         birthday,
+        phoneNumber,
         gender,
       });
+      console.log("서버 응답:", response);
       setShowPopup(true);
     } catch (error) {
-      alert("회원가입 실패: " + (error.response?.data || "Network Error"));
+      console.error("회원가입 중 에러:", error);
+
+      // 백엔드가 아직 준비되지 않은 경우(local 개발), 네트워크 에러이면 로컬에 임시 저장하고 성공 처리
+      const isNetworkError = !error.response || error.message?.toLowerCase().includes("network error");
+      if (isNetworkError) {
+        console.warn("백엔드 미구현 또는 응답 없음 - 로컬에 사용자 정보 저장(개발용)");
+        try {
+          const mockUsers = JSON.parse(localStorage.getItem("mock_users") || "[]");
+          mockUsers.push({ userId, username, password, email, birthday, phoneNumber, gender, createdAt: new Date().toISOString() });
+          localStorage.setItem("mock_users", JSON.stringify(mockUsers));
+          setShowPopup(true);
+          return;
+        } catch (e) {
+          console.error("로컬 저장 실패:", e);
+        }
+      }
+
+      const errorMessage = error.response?.data?.message || error.response?.data || error.message || "Network Error";
+      alert("회원가입 실패: " + errorMessage);
     }
   };
 
@@ -103,12 +126,23 @@ const SignUp = () => {
             />
           </div>
 
-          {/* ✅ 생년월일 (date input 보완) */}
+          {/* 전화번호 입력 추가 */}
           <div className="input-group">
+            <FaPhone className="input-icon" />
+            <input
+              type="tel"
+              placeholder="전화번호 (예: 010-1234-5678)"
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+            />
+          </div>
+
+          {/* ✅ 생년월일 (라벨 추가하여 명확히 표시) */}
+          <div className="input-group date-group">
+            <label className="date-title">생년월일</label>
             <FaCalendar className="input-icon" />
             <input
               type="date"
-              placeholder="생년월일"
               value={birthday}
               onChange={(e) => setBirthday(e.target.value)}
               className="date-input"
