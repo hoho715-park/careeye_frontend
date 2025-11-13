@@ -13,55 +13,57 @@ import {
 import "../styles/SignUp.css";
 
 const SignUp = () => {
-  const [userId, setUserId] = useState("");
+  const [userId, setUserId] = useState(""); // → 백엔드로는 id 로 전달됨
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [birthday, setBirthday] = useState("");
+  const [birthday, setBirthday] = useState(""); // → 백엔드로는 birth 로 전달됨
   const [phoneNumber, setPhoneNumber] = useState("");
   const [gender, setGender] = useState("");
   const [showPopup, setShowPopup] = useState(false);
+
   const navigate = useNavigate();
 
+  // ⭐ 회원가입 요청
   const handleSignUp = async () => {
     if (password !== confirmPassword) {
       alert("비밀번호가 일치하지 않습니다.");
       return;
     }
 
+    // ⭐ 백엔드 DTO(UserRegisterDto)에 맞춰 데이터 필드명 수정됨
+    const signUpData = {
+      id: userId,
+      username: username,
+      password: password,
+      email: email,
+      birth: birthday,
+      phoneNumber: phoneNumber,
+      gender: gender,
+    };
+
     try {
-      console.log("회원가입 요청 데이터:", { userId, username, password, email, birthday, phoneNumber, gender });
-      const response = await axios.post("http://localhost:8080/api/users/register", {
-        userId,
-        username,
-        password,
-        email,
-        birthday,
-        phoneNumber,
-        gender,
-      });
-      console.log("서버 응답:", response);
+      console.log("회원가입 요청 데이터:", signUpData);
+
+      // ⭐ 백엔드 API URL도 실제 사용 중인 URL로 변경
+      const response = await axios.post(
+        "http://localhost:8080/user/register",
+        signUpData
+      );
+
+      console.log("서버 응답:", response.data);
       setShowPopup(true);
+
     } catch (error) {
       console.error("회원가입 중 에러:", error);
 
-      // 백엔드가 아직 준비되지 않은 경우(local 개발), 네트워크 에러이면 로컬에 임시 저장하고 성공 처리
-      const isNetworkError = !error.response || error.message?.toLowerCase().includes("network error");
-      if (isNetworkError) {
-        console.warn("백엔드 미구현 또는 응답 없음 - 로컬에 사용자 정보 저장(개발용)");
-        try {
-          const mockUsers = JSON.parse(localStorage.getItem("mock_users") || "[]");
-          mockUsers.push({ userId, username, password, email, birthday, phoneNumber, gender, createdAt: new Date().toISOString() });
-          localStorage.setItem("mock_users", JSON.stringify(mockUsers));
-          setShowPopup(true);
-          return;
-        } catch (e) {
-          console.error("로컬 저장 실패:", e);
-        }
-      }
+      const errorMessage =
+        error.response?.data?.message ||
+        error.response?.data ||
+        error.message ||
+        "Network Error";
 
-      const errorMessage = error.response?.data?.message || error.response?.data || error.message || "Network Error";
       alert("회원가입 실패: " + errorMessage);
     }
   };
@@ -76,6 +78,8 @@ const SignUp = () => {
         />
 
         <div className="form-section">
+          
+          {/* 사용자 ID */}
           <div className="input-group">
             <FaRegIdBadge className="input-icon" />
             <input
@@ -86,6 +90,7 @@ const SignUp = () => {
             />
           </div>
 
+          {/* 이름 */}
           <div className="input-group">
             <FaRegUser className="input-icon" />
             <input
@@ -96,6 +101,7 @@ const SignUp = () => {
             />
           </div>
 
+          {/* 비밀번호 */}
           <div className="input-group">
             <FaLock className="input-icon" />
             <input
@@ -106,6 +112,7 @@ const SignUp = () => {
             />
           </div>
 
+          {/* 비밀번호 확인 */}
           <div className="input-group">
             <FaLock className="input-icon" />
             <input
@@ -116,6 +123,7 @@ const SignUp = () => {
             />
           </div>
 
+          {/* 이메일 */}
           <div className="input-group">
             <FaEnvelope className="input-icon" />
             <input
@@ -126,7 +134,7 @@ const SignUp = () => {
             />
           </div>
 
-          {/* 전화번호 입력 추가 */}
+          {/* 전화번호 */}
           <div className="input-group">
             <FaPhone className="input-icon" />
             <input
@@ -137,7 +145,7 @@ const SignUp = () => {
             />
           </div>
 
-          {/* ✅ 생년월일 (라벨 추가하여 명확히 표시) */}
+          {/* 생년월일 */}
           <div className="input-group date-group">
             <label className="date-title">생년월일</label>
             <FaCalendar className="input-icon" />
@@ -149,7 +157,7 @@ const SignUp = () => {
             />
           </div>
 
-          {/* 성별 선택 */}
+          {/* 성별 */}
           <div className="gender-group">
             <FaVenusMars className="input-icon gender-icon" />
             <div className="gender-buttons">
