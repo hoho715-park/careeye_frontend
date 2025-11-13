@@ -158,10 +158,24 @@ input:-webkit-autofill {
   color: #3a7afe;
 }
 
-.gender-button.selected {
+/* Remove default focus outline (black) on click/focus */
+.gender-button:focus,
+.gender-button:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+/* Selected state: separate styles for male and female */
+.gender-button.selected.male {
   border-color: #3a7afe;
-  background: #f0f4ff;
+  background: #f0f4ff; /* light blue */
   color: #3a7afe;
+}
+
+.gender-button.selected.female {
+  border-color: #ff80b3;
+  background: #fff0f6; /* light pink */
+  color: #ff4d8b;
 }
 
 /* ================================

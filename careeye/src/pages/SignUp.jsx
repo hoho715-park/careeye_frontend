@@ -154,17 +154,13 @@ const SignUp = () => {
             <FaVenusMars className="input-icon gender-icon" />
             <div className="gender-buttons">
               <button
-                className={`gender-button ${
-                  gender === "male" ? "selected" : ""
-                }`}
+                className={`gender-button ${gender === "male" ? "selected male" : ""}`}
                 onClick={() => setGender("male")}
               >
                 남자
               </button>
               <button
-                className={`gender-button ${
-                  gender === "female" ? "selected" : ""
-                }`}
+                className={`gender-button ${gender === "female" ? "selected female" : ""}`}
                 onClick={() => setGender("female")}
               >
                 여자
