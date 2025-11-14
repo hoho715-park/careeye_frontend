@@ -1,14 +1,21 @@
 import React, { useState, useEffect } from "react";
 import "../styles/SeniorInfo.css";
+import { FaTrashAlt, FaEdit } from "react-icons/fa";
 
 const SeniorInfo = () => {
   const [searchName, setSearchName] = useState("");
   const [searchResults, setSearchResults] = useState("all");
   const [allSeniors, setAllSeniors] = useState([]);
 
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedSenior, setSelectedSenior] = useState(null);
+
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [editSenior, setEditSenior] = useState(null);
+
   const userId = localStorage.getItem("userId");
 
-  // 🔥 전체 시니어 목록 로딩
+  /* 🔵 전체 목록 불러오기 */
   useEffect(() => {
     if (!userId) return;
 
@@ -21,7 +28,7 @@ const SeniorInfo = () => {
       .catch((err) => console.error("시니어 조회 오류:", err));
   }, [userId]);
 
-  // 🔍 검색 실행
+  /* 🔍 검색 기능 */
   const handleSearch = (e) => {
     e.preventDefault();
 
@@ -32,24 +39,58 @@ const SeniorInfo = () => {
 
     const filtered = allSeniors.filter(
       (senior) =>
-        senior.seniorName.replace(/\s+/g, "") ===
-        searchName.replace(/\s+/g, "")
+        senior.seniorName.replace(/\s+/g, "") === searchName.replace(/\s+/g, "")
     );
 
     setSearchResults(filtered.length > 0 ? filtered : "not-found");
   };
 
-  // ⭐ 렌더링할 리스트 결정
-  const renderList =
-    searchResults === "all" ? allSeniors : searchResults;
+  const renderList = searchResults === "all" ? allSeniors : searchResults;
+
+  /* 🗑 삭제 모달 열기 */
+  const openDeleteModal = (senior) => {
+    setSelectedSenior(senior);
+    setShowDeleteModal(true);
+  };
+
+  /* 🗑 삭제 실행 */
+  const confirmDelete = () => {
+    fetch(`http://localhost:8080/senior/delete/${selectedSenior.seniorId}`, {
+      method: "DELETE",
+    })
+      .then(() => {
+        setShowDeleteModal(false);
+        window.location.reload();
+      })
+      .catch((err) => console.error("삭제 오류:", err));
+  };
+
+  /* ✏ 수정 모달 열기 */
+  const openEditModal = (senior) => {
+    setEditSenior({ ...senior });
+    setShowEditModal(true);
+  };
+
+  /* ✏ 수정 실행 */
+  const handleUpdate = () => {
+    fetch(`http://localhost:8080/senior/update/${editSenior.seniorId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(editSenior),
+    })
+      .then(() => {
+        setShowEditModal(false);
+        window.location.reload();
+      })
+      .catch((err) => console.error("수정 오류:", err));
+  };
 
   return (
     <div className="senior-info-container">
       <div className="senior-info-content">
-        
         <h2 className="senior-info-title">시니어 정보 조회</h2>
 
-        {/* 검색폼 */}
+        {/* 🔍 검색 */}
         <form className="search-form" onSubmit={handleSearch}>
           <input
             type="text"
@@ -57,29 +98,27 @@ const SeniorInfo = () => {
             value={searchName}
             onChange={(e) => setSearchName(e.target.value)}
           />
-          <button type="submit" className="search-btn">
-            검색
-          </button>
+          <button className="search-btn">검색</button>
         </form>
 
-        {/* 결과 섹션 */}
         <div className="result-section">
-
           {searchResults === "not-found" ? (
-            <p className="not-found-text">
-              ❌ 해당 이름의 시니어를 찾을 수 없습니다.
-            </p>
+            <p className="not-found-text">❌ 해당 이름의 시니어를 찾을 수 없습니다.</p>
           ) : (
             <div className="result-list">
               {renderList.map((senior, index) => (
                 <div
                   key={index}
                   className={`senior-card ${
-                    senior.seniorGender === "여"
-                      ? "female-border"
-                      : "male-border"
+                    senior.seniorGender === "여" ? "female-border" : "male-border"
                   }`}
                 >
+                  {/* 아이콘 묶음 */}
+                  <div className="card-top-icons">
+                    <FaEdit className="edit-icon" onClick={() => openEditModal(senior)} />
+                    <FaTrashAlt className="delete-icon" onClick={() => openDeleteModal(senior)} />
+                  </div>
+
                   <h3>{senior.seniorName}</h3>
                   <p><strong>시니어 ID:</strong> {senior.seniorId}</p>
                   <p><strong>요양시설 ID:</strong> {senior.hospitalId}</p>
@@ -91,9 +130,103 @@ const SeniorInfo = () => {
               ))}
             </div>
           )}
-
         </div>
       </div>
+
+      {/* =======================
+          삭제 모달
+      ======================== */}
+      {showDeleteModal && selectedSenior && (
+        <div className="modal-overlay">
+          <div className="modal-box">
+            <div className="modal-icon">⚠️</div>
+
+            <p className="modal-message">
+              정말 <span className="senior-name">{selectedSenior.seniorName}</span> 님을
+              삭제하시겠습니까?
+            </p>
+
+            <div className="modal-buttons">
+              <button className="confirm-btn" onClick={confirmDelete}>삭제하기</button>
+              <button className="cancel-btn" onClick={() => setShowDeleteModal(false)}>취소</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* =======================
+          수정 모달
+      ======================== */}
+      {showEditModal && editSenior && (
+        <div className="modal-overlay">
+          <div className="edit-modal-box">
+            <h3 className="edit-modal-title">시니어 정보 수정하기</h3>
+
+            <form className="edit-form">
+              <label>이름</label>
+              <input
+                type="text"
+                value={editSenior.seniorName}
+                onChange={(e) =>
+                  setEditSenior({ ...editSenior, seniorName: e.target.value })
+                }
+              />
+
+              <label>요양시설 ID</label>
+              <input
+                type="text"
+                value={editSenior.hospitalId}
+                onChange={(e) =>
+                  setEditSenior({ ...editSenior, hospitalId: e.target.value })
+                }
+              />
+
+              <label>호실</label>
+              <input
+                type="text"
+                value={editSenior.roomNumber}
+                onChange={(e) =>
+                  setEditSenior({ ...editSenior, roomNumber: e.target.value })
+                }
+              />
+
+              <label>생년월일</label>
+              <input
+                type="date"
+                value={editSenior.seniorBirth}
+                onChange={(e) =>
+                  setEditSenior({ ...editSenior, seniorBirth: e.target.value })
+                }
+              />
+
+              <label>성별</label>
+              <select
+                value={editSenior.seniorGender}
+                onChange={(e) =>
+                  setEditSenior({ ...editSenior, seniorGender: e.target.value })
+                }
+              >
+                <option value="남">남</option>
+                <option value="여">여</option>
+              </select>
+
+              <label>특이사항</label>
+              <textarea
+                value={editSenior.specialNote}
+                onChange={(e) =>
+                  setEditSenior({ ...editSenior, specialNote: e.target.value })
+                }
+              />
+            </form>
+
+            <div className="modal-buttons">
+              <button className="update-btn" onClick={handleUpdate}>수정하기</button>
+              <button className="cancel-btn" onClick={() => setShowEditModal(false)}>취소</button>
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 };
