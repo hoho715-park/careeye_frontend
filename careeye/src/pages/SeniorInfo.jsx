@@ -1,47 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/SeniorInfo.css";
 
 const SeniorInfo = () => {
-  // ✅ 더미 데이터
-  const dummyData = [
-    {
-      name: "김땡개",
-      seniorId: "SNR001",
-      facilityId: "FAC001",
-      room: "203호",
-      birthDate: "1920-07-15",
-      gender: "남",
-      notes: "치매 초기 단계. 주기 모니터링 필요",
-    },
-    {
-      name: "박성호",
-      seniorId: "SNR002",
-      facilityId: "FAC002",
-      room: "401호",
-      birthDate: "1950-03-22",
-      gender: "여",
-      notes: "심장 질환 이력 있음",
-    },
-    {
-      name: "박성호",
-      seniorId: "SNR005",
-      facilityId: "FAC003",
-      room: "305호",
-      birthDate: "1945-11-08",
-      gender: "남",
-      notes: "거동 불편, 휠체어 사용 중",
-    },
-  ];
-
   const [searchName, setSearchName] = useState("");
   const [searchResults, setSearchResults] = useState(null);
+  const [allSeniors, setAllSeniors] = useState([]);
 
+  const userId = localStorage.getItem("userId");
+
+  // 🔥 로그인한 사용자의 전체 시니어 목록 불러오기
+  useEffect(() => {
+    if (!userId) return;
+
+    fetch(`http://localhost:8080/senior/list/${userId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setAllSeniors(data);
+      })
+      .catch((err) => console.error("시니어 조회 오류:", err));
+  }, [userId]);
+
+  // 🔍 검색 실행
   const handleSearch = (e) => {
     e.preventDefault();
-    const results = dummyData.filter(
-      (senior) => senior.name.replace(/\s+/g, "") === searchName.replace(/\s+/g, "")
+
+    const filtered = allSeniors.filter(
+      (senior) =>
+        senior.seniorName.replace(/\s+/g, "") ===
+        searchName.replace(/\s+/g, "")
     );
-    setSearchResults(results.length > 0 ? results : "not-found");
+
+    setSearchResults(filtered.length > 0 ? filtered : "not-found");
   };
 
   return (
@@ -49,7 +38,7 @@ const SeniorInfo = () => {
       <div className="senior-info-content">
         <h2 className="senior-info-title">시니어 정보 조회</h2>
 
-        {/* 검색 입력 */}
+        {/* 검색 폼 */}
         <form className="search-form info-search-form" onSubmit={handleSearch}>
           <input
             type="text"
@@ -58,9 +47,7 @@ const SeniorInfo = () => {
             onChange={(e) => setSearchName(e.target.value)}
             required
           />
-          <button type="submit" className="search-btn">
-            검색
-          </button>
+          <button type="submit" className="search-btn">검색</button>
         </form>
 
         {/* 검색 결과 */}
@@ -75,16 +62,18 @@ const SeniorInfo = () => {
                 <div
                   key={index}
                   className={`senior-card ${
-                    senior.gender === "여" ? "female-border" : "male-border"
+                    senior.seniorGender === "여"
+                      ? "female-border"
+                      : "male-border"
                   }`}
                 >
-                  <h3>{senior.name}</h3>
+                  <h3>{senior.seniorName}</h3>
                   <p><strong>시니어 ID:</strong> {senior.seniorId}</p>
-                  <p><strong>요양시설 ID:</strong> {senior.facilityId}</p>
-                  <p><strong>호실:</strong> {senior.room}</p>
-                  <p><strong>생년월일:</strong> {senior.birthDate}</p>
-                  <p><strong>성별:</strong> {senior.gender}</p>
-                  <p><strong>특이사항:</strong> {senior.notes}</p>
+                  <p><strong>요양시설 ID:</strong> {senior.hospitalId}</p>
+                  <p><strong>호실:</strong> {senior.roomNumber}</p>
+                  <p><strong>생년월일:</strong> {senior.seniorBirth}</p>
+                  <p><strong>성별:</strong> {senior.seniorGender}</p>
+                  <p><strong>특이사항:</strong> {senior.specialNote}</p>
                 </div>
               ))}
             </div>
