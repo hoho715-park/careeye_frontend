@@ -68,13 +68,22 @@
 }
 
 .senior-card {
-  width: 23%;
   background: white;
   padding: 25px 30px;
   border-radius: 16px;
   box-shadow: 0px 6px 20px rgba(0,0,0,0.12);
-  position: relative; /* 아이콘 배치용 */
+  
+  position: relative;
+
+  /* ⭐ 핵심! 카드 고정 너비 */
+  width: 320px;          /* 기본 카드 폭 */
+  min-width: 300px;      /* 너무 줄어들지 않도록 최소폭 */
+  max-width: 350px;      /* 너무 커지지 않도록 */
+
+  /* ⭐ 반응형 정렬을 위한 flex 속성 */
+  flex: 1 1 320px;
 }
+
 
 /* 상단 아이콘 위치 조정 */
 .card-top-icons {
