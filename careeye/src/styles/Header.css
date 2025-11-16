@@ -18,9 +18,11 @@
 }
 
 /* ================================
-   로고
+   좌측 로고 영역
+   ⭐ 중앙 정렬을 위해 고정 너비 부여
 ================================ */
 .menubar-left {
+  width: 200px;              /* ★ 추가: 오른쪽과 동일한 폭 */
   display: flex;
   align-items: center;
 }
@@ -34,6 +36,7 @@
    중앙 메뉴
 ================================ */
 .menubar-center {
+  flex: 1;                    /* ★ 공간을 가운데에서 넓게 사용하도록 */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -62,10 +65,13 @@
 
 /* ================================
    오른쪽 (로그인/프로필)
+   ⭐ 좌측과 동일 폭으로 맞춤
 ================================ */
 .menubar-right {
+  width: 200px;              /* ★ 좌측과 일치시키기 → 중앙 메뉴 정확히 가운데 */
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 20px;
 }
 
@@ -74,7 +80,7 @@
   display: inline-block;
 }
 
-/* 데스크탑에서 보이는 프로필 아이콘 */
+/* 데스크탑 프로필 아이콘 */
 .desktop-profile,
 .menubar-right > a {
   display: flex;
@@ -129,7 +135,6 @@
 ================================ */
 @media (max-width: 1024px) {
 
-  /* 햄버거 메뉴 등장 */
   .hamburger {
     display: block;
     font-size: 2rem;
@@ -137,7 +142,6 @@
     color: #3a7afe;
   }
 
-  /* 중앙 메뉴 → 전체 화면 오버레이 */
   .menubar-center {
     position: fixed;
     top: 0;
@@ -156,26 +160,30 @@
     transform: translateY(0);
   }
 
-  /* 메뉴 세로 정렬 */
   .menubar-center ul {
     flex-direction: column;
     gap: 25px;
     text-align: center;
   }
 
-  /* ⭐ 모바일에서만 프로필 아이콘 메뉴 마지막에 표시 */
   .mobile-login {
     display: block;
     margin-top: 15px;
   }
 
-  /* ⭐ 모바일에서는 데스크탑 프로필 아이콘 숨김 */
+  /* 모바일에서 데스크탑 메뉴 숨김 */
   .menubar-right > a {
     display: none !important;
   }
 
   .desktop-login {
     display: none !important;
+  }
+
+  /* 모바일에서 좌/우 고정폭 해제 */
+  .menubar-left,
+  .menubar-right {
+    width: auto;
   }
 
   .menubar-logo img {
