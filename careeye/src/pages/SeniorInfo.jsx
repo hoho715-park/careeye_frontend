@@ -2,26 +2,10 @@ import React, { useState, useEffect } from "react";
 import "../styles/SeniorInfo.css";
 import { FaTrashAlt, FaEdit } from "react-icons/fa";
 
-// DND Kit import
-import {
-  DndContext,
-  closestCenter,
-} from "@dnd-kit/core";
-
-import {
-  SortableContext,
-  verticalListSortingStrategy,
-  arrayMove,
-} from "@dnd-kit/sortable";
-
-import SortableSeniorCard from "./SortableSeniorCard";
-
 const SeniorInfo = () => {
   const [searchName, setSearchName] = useState("");
   const [searchResults, setSearchResults] = useState("all");
   const [allSeniors, setAllSeniors] = useState([]);
-
-  const [items, setItems] = useState([]); // 🔥 드래그 정렬용 ID 배열
 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedSenior, setSelectedSenior] = useState(null);
@@ -39,7 +23,6 @@ const SeniorInfo = () => {
       .then((res) => res.json())
       .then((data) => {
         setAllSeniors(data);
-        setItems(data.map((s) => s.seniorId)); // 🔥 카드 순서 관리용 ID 배열
         setSearchResults("all");
       })
       .catch((err) => console.error("시니어 조회 오류:", err));
@@ -102,21 +85,6 @@ const SeniorInfo = () => {
       .catch((err) => console.error("수정 오류:", err));
   };
 
-  /* 🔥 드래그 종료 시 실행 */
-  const handleDragEnd = (event) => {
-    const { active, over } = event;
-
-    if (!over) return;
-
-    if (active.id !== over.id) {
-      setItems((prevItems) => {
-        const oldIndex = prevItems.indexOf(active.id);
-        const newIndex = prevItems.indexOf(over.id);
-        return arrayMove(prevItems, oldIndex, newIndex);
-      });
-    }
-  };
-
   return (
     <div className="senior-info-container">
       <div className="senior-info-content">
@@ -138,33 +106,36 @@ const SeniorInfo = () => {
             <p className="not-found-text">❌ 해당 이름의 시니어를 찾을 수 없습니다.</p>
           ) : (
             <div className="result-list">
+              {renderList.map((senior, index) => (
+                <div
+                  key={index}
+                  className={`senior-card ${
+                    senior.seniorGender === "여" ? "female-border" : "male-border"
+                  }`}
+                >
+                  {/* 아이콘 묶음 */}
+                  <div className="card-top-icons">
+                    <FaEdit className="edit-icon" onClick={() => openEditModal(senior)} />
+                    <FaTrashAlt className="delete-icon" onClick={() => openDeleteModal(senior)} />
+                  </div>
 
-              {/* ⭐ DND 컨텍스트 시작 */}
-              <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-                <SortableContext items={items} strategy={verticalListSortingStrategy}>
-                  {items.map((id) => {
-                    const senior = renderList.find((s) => s.seniorId === id);
-                    if (!senior) return null;
-
-                    return (
-                      <SortableSeniorCard
-                        key={senior.seniorId}
-                        senior={senior}
-                        openEditModal={openEditModal}
-                        openDeleteModal={openDeleteModal}
-                      />
-                    );
-                  })}
-                </SortableContext>
-              </DndContext>
-              {/* ⭐ DND 끝 */}
-
+                  <h3>{senior.seniorName}</h3>
+                  <p><strong>시니어 ID:</strong> {senior.seniorId}</p>
+                  <p><strong>요양시설 ID:</strong> {senior.hospitalId}</p>
+                  <p><strong>호실:</strong> {senior.roomNumber}</p>
+                  <p><strong>생년월일:</strong> {senior.seniorBirth}</p>
+                  <p><strong>성별:</strong> {senior.seniorGender}</p>
+                  <p><strong>특이사항:</strong> {senior.specialNote}</p>
+                </div>
+              ))}
             </div>
           )}
         </div>
       </div>
 
-      {/* 삭제 모달 */}
+      {/* =======================
+          삭제 모달
+      ======================== */}
       {showDeleteModal && selectedSenior && (
         <div className="modal-overlay">
           <div className="modal-box">
@@ -183,7 +154,9 @@ const SeniorInfo = () => {
         </div>
       )}
 
-      {/* 수정 모달 */}
+      {/* =======================
+          수정 모달
+      ======================== */}
       {showEditModal && editSenior && (
         <div className="modal-overlay">
           <div className="edit-modal-box">
@@ -253,6 +226,7 @@ const SeniorInfo = () => {
           </div>
         </div>
       )}
+
     </div>
   );
 };
