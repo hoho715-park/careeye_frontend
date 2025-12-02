@@ -11,8 +11,11 @@ import MySenior from "./pages/MySenior";
 import SeniorRegister from "./pages/SeniorRegister";
 import SeniorInfo from "./pages/SeniorInfo";
 
-/* ⭐ 새로 추가: MyPage */
+/* ⭐ MyPage */
 import MyPage from "./pages/MyPage";
+
+/* 📋 Notice 추가 */
+import Notice from "./pages/Notice";
 
 function App() {
   return (
@@ -29,8 +32,11 @@ function App() {
         <Route path="/my-senior/register" element={<SeniorRegister />} />
         <Route path="/my-senior/info" element={<SeniorInfo />} />
 
-        {/* ⭐ 새로 추가된 MyPage */}
+        {/* MyPage */}
         <Route path="/mypage" element={<MyPage />} />
+
+        {/* 📋 Notice 추가 */}
+        <Route path="/notice" element={<Notice />} />
       </Routes>
     </Router>
   );
