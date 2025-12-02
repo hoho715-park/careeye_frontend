@@ -6,21 +6,21 @@
   justify-content: center;
   align-items: flex-start;
   min-height: 100vh;
-  background-color: #f8fafc;
+  background: linear-gradient(135deg, #e8f4fc 0%, #f0e6fa 100%);
   padding: 20px;
-  margin-top: 120px; /* Header 영역 확보 */
+  margin-top: 80px;
 }
 
 .senior-info-content {
   width: 100%;
-  max-width: 1600px;
+  max-width: 1400px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .senior-info-title {
-  font-size: 2.6rem;
+  font-size: 2.2rem;
   font-weight: bold;
   color: #1e3a8a;
   margin-bottom: 25px;
@@ -32,7 +32,7 @@
 .search-form {
   display: flex;
   width: 100%;
-  max-width: 800px;
+  max-width: 600px;
   gap: 10px;
   margin-bottom: 30px;
 }
@@ -40,115 +40,172 @@
 .search-form input {
   flex: 1;
   padding: 14px 18px;
-  border: 1.8px solid #cbd5e1;
-  border-radius: 10px;
-  background: #f5f8fc;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  background: #ffffff;
   font-size: 1rem;
-  color: black;
+  color: #2d3748;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.search-form input:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+}
+
+.search-form input::placeholder {
+  color: #a0aec0;
 }
 
 .search-btn {
-  background: linear-gradient(135deg, #3a7afe, #6a5af8);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   border: none;
-  padding: 12px 24px;
-  border-radius: 10px;
+  padding: 14px 28px;
+  border-radius: 12px;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 700;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.search-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
 }
 
 /* ================================
    결과 영역
 ================================ */
+.result-section {
+  width: 100%;
+}
+
+.not-found-text {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #718096;
+  padding: 40px;
+}
+
 .result-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 30px;
+  gap: 24px;
 }
 
+/* ================================
+   시니어 카드
+================================ */
 .senior-card {
-  background: white;
-  padding: 25px 30px;
+  background: #ffffff;
+  padding: 24px;
   border-radius: 16px;
-  box-shadow: 0px 6px 20px rgba(0,0,0,0.12);
-  
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   position: relative;
-
-  /* ⭐ 핵심! 카드 고정 너비 */
-  width: 320px;          /* 기본 카드 폭 */
-  min-width: 300px;      /* 너무 줄어들지 않도록 최소폭 */
-  max-width: 350px;      /* 너무 커지지 않도록 */
-
-  /* ⭐ 반응형 정렬을 위한 flex 속성 */
+  width: 320px;
+  min-width: 280px;
+  max-width: 350px;
   flex: 1 1 320px;
+  transition: all 0.3s ease;
+  border-top: 4px solid #667eea;
 }
 
+.senior-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
 
-/* 상단 아이콘 위치 조정 */
+.senior-card.male-border {
+  border-top-color: #4facfe;
+}
+
+.senior-card.female-border {
+  border-top-color: #f5576c;
+}
+
+/* 상단 아이콘 */
 .card-top-icons {
   position: absolute;
-  top: 14px;
-  left: 14px;
-  right: 14px;
+  top: 16px;
+  left: 16px;
+  right: 16px;
   display: flex;
   justify-content: space-between;
 }
 
-/* 아이콘 스타일 */
 .edit-icon {
-  color: #3a7afe;
-  font-size: 1.35rem;
+  color: #667eea;
+  font-size: 1.2rem;
   cursor: pointer;
-  transition: 0.2s ease;
-}
-
-.delete-icon {
-  color: #ff4b4b;
-  font-size: 1.35rem;
-  cursor: pointer;
-  transition: 0.2s ease;
+  transition: all 0.2s ease;
+  padding: 6px;
+  border-radius: 6px;
 }
 
 .edit-icon:hover {
-  transform: scale(1.15);
+  background: rgba(102, 126, 234, 0.1);
+  transform: scale(1.1);
+}
+
+.delete-icon {
+  color: #f5576c;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 6px;
+  border-radius: 6px;
 }
 
 .delete-icon:hover {
-  transform: scale(1.15);
+  background: rgba(245, 87, 108, 0.1);
+  transform: scale(1.1);
 }
 
 /* 카드 제목 */
 .senior-card h3 {
-  margin-top: 28px; /* 아이콘 아래 공간 확보 */
-  margin-bottom: 15px;
-  padding-bottom: 8px;
-  border-bottom: 2px solid #3a7afe;
-  color: #1e3a8a;
-  font-size: 1.4rem;
+  margin-top: 32px;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e2e8f0;
+  color: #2d3748;
+  font-size: 1.3rem;
+  font-weight: 700;
 }
 
-/* 반응형 */
-@media (max-width: 1500px) {
-  .senior-card {
-    width: 30%;
-  }
+.senior-card.male-border h3 {
+  border-bottom-color: #4facfe;
 }
 
-@media (max-width: 1100px) {
-  .senior-card {
-    width: 45%;
-  }
+.senior-card.female-border h3 {
+  border-bottom-color: #f5576c;
 }
 
-@media (max-width: 700px) {
-  .senior-card {
-    width: 90%;
-  }
+/* 카드 정보 */
+.card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.card-info p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #4a5568;
+  display: flex;
+  gap: 6px;
+}
+
+.card-info p strong {
+  color: #2d3748;
+  font-weight: 600;
+  min-width: 100px;
 }
 
 /* ================================
-   🔥 삭제 팝업 스타일
+   삭제 모달
 ================================ */
 .modal-overlay {
   position: fixed;
@@ -156,8 +213,8 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(15, 27, 48, 0.45);
-  backdrop-filter: blur(3px);
+  background: rgba(15, 27, 48, 0.5);
+  backdrop-filter: blur(4px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -165,120 +222,204 @@
 }
 
 .modal-box {
-  width: 420px;
+  width: 400px;
+  max-width: 90%;
   background: #fff;
   padding: 32px;
-  border-radius: 16px;
-  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   text-align: center;
-  animation: scaleIn 0.25s ease;
+  animation: modalIn 0.3s ease;
 }
 
-/* 애니메이션 */
-@keyframes scaleIn {
-  from { transform: scale(0.85); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+@keyframes modalIn {
+  from {
+    transform: scale(0.9) translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
 }
 
-/* 경고 아이콘 */
 .modal-icon {
-  font-size: 48px;
-  margin-bottom: 15px;
+  font-size: 3rem;
+  margin-bottom: 16px;
 }
 
-/* 내용 텍스트 */
 .modal-message {
-  font-size: 1.2rem;
-  color: #444;
-  margin-bottom: 25px;
+  font-size: 1.1rem;
+  color: #4a5568;
+  margin-bottom: 24px;
+  line-height: 1.6;
 }
 
 .senior-name {
-  font-weight: bold;
-  color: #3a7afe;
+  font-weight: 700;
+  color: #667eea;
 }
 
-/* 버튼 */
 .modal-buttons {
   display: flex;
   justify-content: center;
-  gap: 16px;
+  gap: 12px;
 }
 
 .confirm-btn {
-  background: #ff4d4f;
+  background: linear-gradient(135deg, #f5576c 0%, #f093fb 100%);
   color: white;
-  padding: 12px 26px;
+  padding: 12px 28px;
   border: none;
   border-radius: 10px;
-  font-weight: bold;
+  font-weight: 700;
+  font-size: 0.95rem;
   cursor: pointer;
-  min-width: 120px;
+  transition: all 0.3s ease;
+}
+
+.confirm-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
 }
 
 .cancel-btn {
-  background: #e5e7eb;
-  color: #333;
-  padding: 12px 26px;
+  background: #f1f5f9;
+  color: #64748b;
+  padding: 12px 28px;
   border: none;
   border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
   cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cancel-btn:hover {
+  background: #e2e8f0;
 }
 
 /* ================================
-   ✏ 수정 팝업 스타일
+   수정 모달
 ================================ */
 .edit-modal-box {
   width: 480px;
+  max-width: 90%;
   background: #fff;
-  padding: 35px;
-  border-radius: 16px;
-  box-shadow: 0 10px 35px rgba(0,0,0,0.25);
-  animation: scaleIn 0.25s ease;
+  padding: 32px;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: modalIn 0.3s ease;
 }
 
-/* 제목 */
 .edit-modal-title {
-  font-size: 1.6rem;
-  font-weight: bold;
-  color: #1e3a8a;
-  margin-bottom: 20px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 24px;
+  text-align: center;
 }
 
-/* 입력폼 */
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
 .edit-modal-box label {
   display: block;
   font-weight: 600;
-  color: #333;
-  margin-bottom: 6px;
+  color: #4a5568;
+  font-size: 0.85rem;
+  margin-top: 8px;
 }
 
 .edit-modal-box input,
 .edit-modal-box select,
 .edit-modal-box textarea {
   width: 100%;
-  padding: 12px;
+  padding: 10px 14px;
   border-radius: 10px;
-  border: 1.5px solid #cbd5e1;
+  border: 2px solid #e2e8f0;
   background: #f8fafc;
-  font-size: 1rem;
-  margin-bottom: 15px;
-  color: gray;
+  font-size: 0.95rem;
+  color: #2d3748;
+  outline: none;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
 }
 
-/* 수정하기 버튼 (파란색) */
+.edit-modal-box input:focus,
+.edit-modal-box select:focus,
+.edit-modal-box textarea:focus {
+  border-color: #667eea;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+}
+
+.edit-modal-box textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.edit-modal-box .modal-buttons {
+  margin-top: 20px;
+}
+
 .update-btn {
-  background: linear-gradient(135deg, #3a7afe, #6a5af8);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   padding: 12px 28px;
   border: none;
   border-radius: 10px;
-  font-weight: bold;
+  font-weight: 700;
+  font-size: 0.95rem;
   cursor: pointer;
-  min-width: 120px;
-  margin-right: 10px;
+  transition: all 0.3s ease;
 }
 
 .update-btn:hover {
-  background: linear-gradient(135deg, #2d6bff, #5847f8);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* ================================
+   반응형
+================================ */
+@media (max-width: 1200px) {
+  .senior-card {
+    width: calc(50% - 12px);
+    flex: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .senior-info-container {
+    margin-top: 70px;
+    padding: 15px;
+  }
+
+  .senior-info-title {
+    font-size: 1.8rem;
+  }
+
+  .search-form {
+    flex-direction: column;
+  }
+
+  .search-btn {
+    width: 100%;
+  }
+
+  .senior-card {
+    width: 100%;
+    max-width: 100%;
+    flex: none;
+  }
+
+  .modal-box,
+  .edit-modal-box {
+    margin: 20px;
+    padding: 24px;
+  }
 }

@@ -22,6 +22,7 @@ const SeniorInfo = () => {
     fetch(`http://localhost:8080/senior/list/${userId}`)
       .then((res) => res.json())
       .then((data) => {
+        console.log("받아온 데이터:", data); // 데이터 구조 확인용
         setAllSeniors(data);
         setSearchResults("all");
       })
@@ -37,10 +38,10 @@ const SeniorInfo = () => {
       return;
     }
 
-    const filtered = allSeniors.filter(
-      (senior) =>
-        senior.seniorName.replace(/\s+/g, "") === searchName.replace(/\s+/g, "")
-    );
+    const filtered = allSeniors.filter((senior) => {
+      const name = senior.seniorName || senior.name || "";
+      return name.replace(/\s+/g, "") === searchName.replace(/\s+/g, "");
+    });
 
     setSearchResults(filtered.length > 0 ? filtered : "not-found");
   };
@@ -55,7 +56,8 @@ const SeniorInfo = () => {
 
   /* 🗑 삭제 실행 */
   const confirmDelete = () => {
-    fetch(`http://localhost:8080/senior/delete/${selectedSenior.seniorId}`, {
+    const seniorId = selectedSenior.seniorId || selectedSenior.id;
+    fetch(`http://localhost:8080/senior/delete/${seniorId}`, {
       method: "DELETE",
     })
       .then(() => {
@@ -73,7 +75,8 @@ const SeniorInfo = () => {
 
   /* ✏ 수정 실행 */
   const handleUpdate = () => {
-    fetch(`http://localhost:8080/senior/update/${editSenior.seniorId}`, {
+    const seniorId = editSenior.seniorId || editSenior.id;
+    fetch(`http://localhost:8080/senior/update/${seniorId}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(editSenior),
@@ -83,6 +86,16 @@ const SeniorInfo = () => {
         window.location.reload();
       })
       .catch((err) => console.error("수정 오류:", err));
+  };
+
+  /* 필드값 가져오기 헬퍼 함수 */
+  const getField = (senior, ...keys) => {
+    for (const key of keys) {
+      if (senior[key] !== undefined && senior[key] !== null) {
+        return senior[key];
+      }
+    }
+    return "-";
   };
 
   return (
@@ -110,7 +123,9 @@ const SeniorInfo = () => {
                 <div
                   key={index}
                   className={`senior-card ${
-                    senior.seniorGender === "여" ? "female-border" : "male-border"
+                    getField(senior, "seniorGender", "gender") === "여" 
+                      ? "female-border" 
+                      : "male-border"
                   }`}
                 >
                   {/* 아이콘 묶음 */}
@@ -119,13 +134,16 @@ const SeniorInfo = () => {
                     <FaTrashAlt className="delete-icon" onClick={() => openDeleteModal(senior)} />
                   </div>
 
-                  <h3>{senior.seniorName}</h3>
-                  <p><strong>시니어 ID:</strong> {senior.seniorId}</p>
-                  <p><strong>요양시설 ID:</strong> {senior.hospitalId}</p>
-                  <p><strong>호실:</strong> {senior.roomNumber}</p>
-                  <p><strong>생년월일:</strong> {senior.seniorBirth}</p>
-                  <p><strong>성별:</strong> {senior.seniorGender}</p>
-                  <p><strong>특이사항:</strong> {senior.specialNote}</p>
+                  <h3>{getField(senior, "seniorName", "name")}</h3>
+                  
+                  <div className="card-info">
+                    <p><strong>🆔 시니어 ID:</strong> {getField(senior, "seniorId", "id")}</p>
+                    <p><strong>🏥 요양시설 ID:</strong> {getField(senior, "hospitalId", "facilityId")}</p>
+                    <p><strong>🚪 호실:</strong> {getField(senior, "roomNumber", "room")}</p>
+                    <p><strong>🎂 생년월일:</strong> {getField(senior, "seniorBirth", "birthDate")}</p>
+                    <p><strong>👤 성별:</strong> {getField(senior, "seniorGender", "gender")}</p>
+                    <p><strong>📝 특이사항:</strong> {getField(senior, "specialNote", "notes")}</p>
+                  </div>
                 </div>
               ))}
             </div>
@@ -142,8 +160,9 @@ const SeniorInfo = () => {
             <div className="modal-icon">⚠️</div>
 
             <p className="modal-message">
-              정말 <span className="senior-name">{selectedSenior.seniorName}</span> 님을
-              삭제하시겠습니까?
+              정말 <span className="senior-name">
+                {getField(selectedSenior, "seniorName", "name")}
+              </span> 님을 삭제하시겠습니까?
             </p>
 
             <div className="modal-buttons">
@@ -166,44 +185,64 @@ const SeniorInfo = () => {
               <label>이름</label>
               <input
                 type="text"
-                value={editSenior.seniorName}
+                value={editSenior.seniorName || editSenior.name || ""}
                 onChange={(e) =>
-                  setEditSenior({ ...editSenior, seniorName: e.target.value })
+                  setEditSenior({ 
+                    ...editSenior, 
+                    seniorName: e.target.value,
+                    name: e.target.value 
+                  })
                 }
               />
 
               <label>요양시설 ID</label>
               <input
                 type="text"
-                value={editSenior.hospitalId}
+                value={editSenior.hospitalId || editSenior.facilityId || ""}
                 onChange={(e) =>
-                  setEditSenior({ ...editSenior, hospitalId: e.target.value })
+                  setEditSenior({ 
+                    ...editSenior, 
+                    hospitalId: e.target.value,
+                    facilityId: e.target.value 
+                  })
                 }
               />
 
               <label>호실</label>
               <input
                 type="text"
-                value={editSenior.roomNumber}
+                value={editSenior.roomNumber || editSenior.room || ""}
                 onChange={(e) =>
-                  setEditSenior({ ...editSenior, roomNumber: e.target.value })
+                  setEditSenior({ 
+                    ...editSenior, 
+                    roomNumber: e.target.value,
+                    room: e.target.value 
+                  })
                 }
               />
 
               <label>생년월일</label>
               <input
                 type="date"
-                value={editSenior.seniorBirth}
+                value={editSenior.seniorBirth || editSenior.birthDate || ""}
                 onChange={(e) =>
-                  setEditSenior({ ...editSenior, seniorBirth: e.target.value })
+                  setEditSenior({ 
+                    ...editSenior, 
+                    seniorBirth: e.target.value,
+                    birthDate: e.target.value 
+                  })
                 }
               />
 
               <label>성별</label>
               <select
-                value={editSenior.seniorGender}
+                value={editSenior.seniorGender || editSenior.gender || "남"}
                 onChange={(e) =>
-                  setEditSenior({ ...editSenior, seniorGender: e.target.value })
+                  setEditSenior({ 
+                    ...editSenior, 
+                    seniorGender: e.target.value,
+                    gender: e.target.value 
+                  })
                 }
               >
                 <option value="남">남</option>
@@ -212,9 +251,13 @@ const SeniorInfo = () => {
 
               <label>특이사항</label>
               <textarea
-                value={editSenior.specialNote}
+                value={editSenior.specialNote || editSenior.notes || ""}
                 onChange={(e) =>
-                  setEditSenior({ ...editSenior, specialNote: e.target.value })
+                  setEditSenior({ 
+                    ...editSenior, 
+                    specialNote: e.target.value,
+                    notes: e.target.value 
+                  })
                 }
               />
             </form>
