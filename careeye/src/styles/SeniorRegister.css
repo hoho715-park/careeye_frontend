@@ -2,57 +2,116 @@
    전체 컨테이너
 ================================ */
 .register-container {
-  height: calc(100vh - 80px); /* 헤더 제외한 정확한 높이 */
+  height: calc(100vh - 80px);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #f8fafc;
-  margin-top: 80px; /* 헤더 높이 */
-  overflow: hidden; /* 스크롤 제거 */
+  background: linear-gradient(135deg, #e8f4fc 0%, #f0e6fa 100%);
+  margin-top: 80px;
+  overflow: hidden;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
 /* ================================
-   등록 폼
+   등록 카드
+================================ */
+.register-card {
+  width: 100%;
+  max-width: 520px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+/* 카드 헤더 */
+.card-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 14px 24px;
+  text-align: center;
+  color: white;
+}
+
+.header-icon {
+  font-size: 2rem;
+  margin-bottom: 2px;
+}
+
+.card-header h2 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.card-header p {
+  margin: 3px 0 0;
+  font-size: 0.75rem;
+  opacity: 0.9;
+}
+
+/* ================================
+   폼 영역
 ================================ */
 .register-form {
+  padding: 16px 24px 20px;
   display: flex;
   flex-direction: column;
-  gap: 5px; /* 더 줄임 */
-  width: 100%;
-  max-width: 400px;
-  background: #fff;
-  padding: 20px 28px; /* 패딩 축소 */
-  border-radius: 14px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  gap: 10px;
+}
+
+/* 2열 레이아웃 */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.form-group.full-width {
+  grid-column: 1 / -1;
 }
 
 /* 라벨 */
 .input-label {
-  font-size: 0.8rem; /* 폰트 축소 */
-  color: #374151;
-  margin-left: 4px;
+  font-size: 0.75rem;
+  color: #4a5568;
   font-weight: 600;
-  margin-bottom: 0;
-  margin-top: 3px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.label-icon {
+  font-size: 0.8rem;
 }
 
 /* 입력칸 */
 .register-form input {
-  background-color: #f3f6fa;
-  border: 1.5px solid #d0d7e6;
-  border-radius: 6px;
-  padding: 8px 10px; /* 패딩 축소 */
-  font-size: 0.9rem;
-  color: #222;
+  background-color: #f7fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  color: #2d3748;
   outline: none;
-  transition: all 0.25s ease;
+  transition: all 0.3s ease;
+}
+
+.register-form input::placeholder {
+  color: #a0aec0;
 }
 
 .register-form input:focus {
   background-color: #ffffff;
-  border-color: #3a7afe;
-  box-shadow: 0 0 8px rgba(58, 122, 254, 0.25);
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
 }
 
 /* ================================
@@ -60,26 +119,25 @@
 ================================ */
 .gender-select {
   display: flex;
-  gap: 10px;
-  margin-top: 0;
+  gap: 6px;
 }
 
 .gender-btn {
   flex: 1;
-  border: 1.5px solid #d0d7e6;
-  background-color: #f3f6fa;
-  border-radius: 6px;
-  padding: 8px 0; /* 패딩 축소 */
-  font-size: 0.9rem;
-  color: #333;
+  border: 2px solid #e2e8f0;
+  background-color: #f7fafc;
+  border-radius: 8px;
+  padding: 8px 0;
+  font-size: 0.8rem;
+  color: #4a5568;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.25s ease;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
   outline: none;
-}
-
-.gender-btn:hover {
-  background-color: #e7ecf8;
 }
 
 .gender-btn:focus {
@@ -87,166 +145,329 @@
   box-shadow: none;
 }
 
+.gender-btn:hover {
+  background-color: #edf2f7;
+  border-color: #cbd5e0;
+}
+
+.gender-btn span {
+  font-size: 0.9rem;
+}
+
 /* 남자 버튼 활성화 */
 .gender-btn.active.male {
-  background: linear-gradient(135deg, #6ecbff, #9edbff);
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
   color: #fff;
-  border-color: #5db6ff;
-  box-shadow: 0 0 10px rgba(94, 177, 255, 0.4);
+  border-color: transparent;
+  box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
+  outline: none;
+}
+
+.gender-btn.active.male:focus {
+  outline: none;
+  box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
 }
 
 /* 여자 버튼 활성화 */
 .gender-btn.active.female {
-  background: linear-gradient(135deg, #ff92b2, #ffb7cc);
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
   color: #fff;
-  border-color: #ff8fa3;
-  box-shadow: 0 0 10px rgba(255, 150, 180, 0.4);
+  border-color: transparent;
+  box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
+  outline: none;
+}
+
+.gender-btn.active.female:focus {
+  outline: none;
+  box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
 }
 
 /* 등록 버튼 */
 .submit-btn {
-  background: linear-gradient(135deg, #3a7afe, #6a5af8);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   border: none;
-  border-radius: 6px;
-  padding: 10px;
-  font-weight: 600;
-  font-size: 0.9rem;
-  margin-top: 8px;
+  border-radius: 10px;
+  padding: 12px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-top: 6px;
   cursor: pointer;
   transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  outline: none;
+}
+
+.submit-btn:focus {
+  outline: none;
 }
 
 .submit-btn:hover {
-  background: linear-gradient(135deg, #4c8dff, #7b6dfc);
-  box-shadow: 0 4px 12px rgba(58, 122, 254, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+}
+
+.btn-icon {
+  font-size: 1.1rem;
+  transition: transform 0.3s ease;
+}
+
+.submit-btn:hover .btn-icon {
+  transform: translateX(4px);
 }
 
 /* ================================
-   등록 완료 (카드 뉴스형)
+   등록 완료 화면
 ================================ */
 .result-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-align: center;
+  max-height: calc(100vh - 100px);
+}
+
+.success-icon {
+  font-size: 2.2rem;
+  margin-bottom: 6px;
+  animation: bounce 0.6s ease;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.success-title {
+  font-size: 1.3rem;
+  color: #2d3748;
+  margin: 0 0 12px;
 }
 
 .senior-card {
-  background-color: #f9fbff;
-  padding: 28px 36px;
-  border-radius: 20px;
-  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
-  text-align: left;
+  background: #ffffff;
+  padding: 16px 24px;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 450px;
-  transition: all 0.3s ease;
+  max-width: 400px;
+  border-top: 4px solid #667eea;
 }
 
-.senior-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+.senior-card.male-border {
+  border-top-color: #4facfe;
 }
 
-/* 성별에 따른 선 색상 */
-.senior-card h3 {
-  font-size: 1.5rem;
-  margin-bottom: 16px;
-  padding-bottom: 8px;
-  border-bottom: 2.5px solid #3a7afe;
-  color: #1e3a8a;
+.senior-card.female-border {
+  border-top-color: #f5576c;
 }
 
-.senior-card.male-border h3 {
-  border-bottom: 2.5px solid #3a7afe;
+.card-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 12px;
 }
 
-.senior-card.female-border h3 {
-  border-bottom: 2.5px solid #ff7bac;
+.profile-avatar {
+  font-size: 2.2rem;
+  margin-bottom: 4px;
 }
 
-.senior-card p {
-  margin: 6px 0;
-  font-size: 0.95rem;
-  color: #333;
+.card-profile h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #2d3748;
+  padding-bottom: 6px;
+  border-bottom: 2px solid #667eea;
 }
 
-/* 버튼 그룹 중앙 정렬 */
+.senior-card.male-border .card-profile h3 {
+  border-bottom-color: #4facfe;
+}
+
+.senior-card.female-border .card-profile h3 {
+  border-bottom-color: #f5576c;
+}
+
+.card-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.info-item {
+  background: #f7fafc;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: left;
+}
+
+.info-label {
+  display: block;
+  font-size: 0.65rem;
+  color: #718096;
+  margin-bottom: 2px;
+}
+
+.info-value {
+  display: block;
+  font-size: 0.85rem;
+  color: #2d3748;
+  font-weight: 600;
+}
+
+/* 버튼 그룹 */
 .button-group {
   display: flex;
   justify-content: center;
-  gap: 15px;
-  margin-top: 20px;
+  gap: 10px;
+  margin-top: 14px;
 }
 
-/* 홈으로 돌아가기 버튼 */
 .back-btn {
-  background-color: #e5e7eb;
-  color: #111827;
-  border: none;
-  padding: 10px 18px;
+  background: #ffffff;
+  color: #4a5568;
+  border: 2px solid #e2e8f0;
+  padding: 10px 16px;
   border-radius: 8px;
   font-weight: 600;
+  font-size: 0.85rem;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.back-btn:focus {
+  outline: none;
 }
 
 .back-btn:hover {
-  background-color: #d1d5db;
+  background: #f7fafc;
+  border-color: #cbd5e0;
 }
 
-/* 추가 등록하기 버튼 */
 .reset-btn {
-  background-color: #3a7afe;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   border: none;
-  padding: 10px 18px;
+  padding: 10px 16px;
   border-radius: 8px;
   font-weight: 600;
+  font-size: 0.85rem;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.reset-btn:focus {
+  outline: none;
 }
 
 .reset-btn:hover {
-  background-color: #295dde;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
 }
 
 /* ================================
-   반응형
+   반응형 (모바일)
 ================================ */
 @media (max-width: 600px) {
   .register-container {
-    padding: 10px;
+    height: auto;
+    min-height: calc(100vh - 70px);
     margin-top: 70px;
-    height: calc(100vh - 70px);
+    padding: 20px 15px;
+    overflow: auto;
+  }
+
+  .register-card {
+    border-radius: 16px;
+  }
+
+  .card-header {
+    padding: 16px 20px;
+  }
+
+  .header-icon {
+    font-size: 1.8rem;
+  }
+
+  .card-header h2 {
+    font-size: 1.1rem;
   }
 
   .register-form {
     padding: 18px 20px;
-    gap: 4px;
+    gap: 12px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
   }
 
   .register-form input {
-    padding: 7px 9px;
-    font-size: 0.85rem;
+    padding: 12px 14px;
+    font-size: 1rem;
   }
 
-  .input-label {
-    font-size: 0.75rem;
+  .gender-btn {
+    padding: 12px 0;
+    font-size: 0.9rem;
+  }
+
+  .submit-btn {
+    padding: 14px;
+    font-size: 1rem;
+  }
+
+  .result-wrapper {
+    max-height: none;
+    padding: 20px 0;
   }
 
   .senior-card {
-    width: 90%;
-    padding: 22px 22px;
+    padding: 20px;
+    max-width: 100%;
+  }
+
+  .card-info-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .info-item {
+    padding: 12px;
+  }
+
+  .info-label {
+    font-size: 0.7rem;
+  }
+
+  .info-value {
+    font-size: 0.9rem;
   }
 
   .button-group {
     flex-direction: column;
-    align-items: center;
+    width: 100%;
+    gap: 10px;
+    margin-top: 20px;
   }
 
   .back-btn,
   .reset-btn {
-    width: 80%;
+    width: 100%;
+    padding: 14px;
+    font-size: 0.95rem;
   }
 }
