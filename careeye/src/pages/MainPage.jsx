@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/MainPage.css";
 import Header from "../components/Header";
+import CameraModal from "../components/CameraModal";
 
 const MainPage = () => {
+  const [isCameraOpen, setIsCameraOpen] = useState(false);
+
+  const handleOpenCamera = () => {
+    setIsCameraOpen(true);
+  };
+
+  const handleCloseCamera = () => {
+    setIsCameraOpen(false);
+  };
+
   return (
     <>
       <Header />
@@ -15,9 +26,13 @@ const MainPage = () => {
           <p>
             AI 기반 낙상 감지로 요양시설의 안전을 실시간으로 모니터링합니다.
           </p>
-          <button className="main-btn">실시간 모니터링 하기 →</button>
+          <button className="main-btn" onClick={handleOpenCamera}>
+            실시간 모니터링 하기 →
+          </button>
         </div>
       </section>
+      
+      {isCameraOpen && <CameraModal onClose={handleCloseCamera} />}
     </>
   );
 };
